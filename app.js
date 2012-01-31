@@ -14,7 +14,7 @@ var
     var
       // on prépare les options pour la requête du proxy
       options = {
-        host: 'wandb.org',
+        host: 'www.microsoft.com',
         port: 80,
         headers: req.headers,
         path: req.url,
@@ -32,7 +32,7 @@ var
 
           proxyResponse.on('data', function(chunk) {
             chunk = chunk.toString();
-            chunk = chunk.replace(/wandb/gi, 'tg');
+            chunk = chunk.replace(/windows/gi, 'linux');
             res.write(chunk);
           });
 
