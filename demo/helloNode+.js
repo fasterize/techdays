@@ -1,19 +1,18 @@
 var http = require('http')
     , mysql = require('mysql')
     , client = mysql.createClient({
-      user: 'root',
-        password: 'root',
+      user: 'root'
     });  
 
 client.query('use castle;');
 
 http.createServer(function (req, res) {
-      res.writeHead(200, {'Content-Type': 'text/json'});
+      res.writeHead(200, {'Content-Type': 'text/html'});
       client.query('select * from dragons',function (err,data) {
-                if (e) { 
+                if (err) { 
                         res.end('ERROR'); 
                     } else { 
-                      res.end(JSON.stringify(d));
+                      res.end(JSON.stringify(data));
                         }
           });
       }).listen(8124, '127.0.0.1');
