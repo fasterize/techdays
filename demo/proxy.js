@@ -32,7 +32,7 @@ var
 
           proxyResponse.on('data', function(chunk) {
             chunk = chunk.toString();
-            chunk = chunk.replace(/windows/gi, 'linux');
+            chunk = chunk.replace(/windows/gi, 'Linux');
             res.write(chunk);
           });
 
