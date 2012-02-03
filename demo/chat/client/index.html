@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Simple chat</title>
+    </head>
+    <body>
+        <div>
+            <p>
+                <label for="messageText">Message</label>
+                <input type="text" id="messageText"/>
+            </p>
+            <p>
+                <button id="sendButton">Send</button>
+            </p>
+        </div>
+        <div>
+            <ul id="messages">
+            </ul>
+        </div>
+        <script type="text/javascript" src="http://localhost:2000/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var webSocket = io.connect('localhost', { port: 2000 });
+
+                //webSocket.connect();
+
+                webSocket.on('connect', function() {
+                    $('#messages').append('<li>Connected to the server.</li>');
+                });
+
+                webSocket.on('message', function(message) {
+                    $('#messages').append('<li>' + message + '</li>');
+                });
+
+                webSocket.on('disconnect', function() {
+                    $('#messages').append('<li>Disconnected from the server.</li>');
+                });
+
+                $('#sendButton').bind('click', function() {
+                    var message = $('#messageText').val();
+                    $('#messages').append('<li style="list-style:circle">(' + message + ')</li>');
+                    webSocket.emit('message', message);
+                    $('#messageText').val('');
+                });
+            });
+        </script>
+    </body>
+</html>
